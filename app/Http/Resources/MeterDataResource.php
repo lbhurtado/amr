@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources;
 
-use App\Facades\AMR;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class MeterDataResource extends JsonResource
@@ -15,6 +14,6 @@ class MeterDataResource extends JsonResource
      */
     public function toArray($request)
     {
-        return AMR::getMeterData()->toArray();
+        return $request;
     }
 }

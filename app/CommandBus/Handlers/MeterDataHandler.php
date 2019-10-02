@@ -16,6 +16,6 @@ class MeterDataHandler implements HandlerInterface
      */
     function handle(CommandInterface $command)
     {
-        $this->dispatchNow(new MeterData($command));
+        $this->dispatch(new MeterData($command));
     }
 }

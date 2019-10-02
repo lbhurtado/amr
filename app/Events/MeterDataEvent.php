@@ -5,7 +5,7 @@ namespace App\Events;
 use App\MeterData;
 use Opis\Events\Event;
 
-class MeterDataEvent extends Event
+class MeterDataEvent extends Event//deprecate
 {
     /** @var MeterData */
     protected $meter_data;

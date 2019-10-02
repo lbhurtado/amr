@@ -19,10 +19,11 @@ class MeterDataSeeder extends Seeder
 
         foreach ($this->getRecords() as $record) {
             $input = array_combine($this->getFieldNames(), $record);
+            // dd(json_encode($input));
             $client->request('POST', $url, [
                 'json' => $input
             ]);
-            usleep(10);
+            // usleep(10);
         }
     }
 
