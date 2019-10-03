@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Reading extends Model
 {
     protected $fillable = [
+        'previous_meter_data_id',
+        'meter_data_id',
+        'sequence_id',
         'location',
         'meter_id',
         'current_wh_total',

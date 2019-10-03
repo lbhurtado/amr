@@ -15,6 +15,9 @@ class CreateReadingsTable extends Migration
     {
         Schema::create('readings', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger('meter_data_id');
+            $table->bigInteger('previous_meter_data_id');
+            $table->bigInteger('sequence_id');
             $table->string('location')->index();
             $table->string('meter_id')->index();
             $table->double('current_wh_total');

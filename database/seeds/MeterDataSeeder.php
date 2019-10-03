@@ -22,6 +22,7 @@ class MeterDataSeeder extends Seeder
             $client->request('POST', $url, [
                 'json' => $input
             ]);
+            usleep(100);
         }
     }
 
@@ -76,6 +77,8 @@ class MeterDataSeeder extends Seeder
 
     protected function getRecords()
     {
+        return config('meter_reading');
+
         return [
             [26971,'EDMI','217064051',0,'','2018-02-28 14:37:47',225,224.1,225.6,15.2,15.1,9.8,60,0.98,10034.62,10121.45,-1636.79,0,0,0,1581190.12,0,0,0,64036.26,1711999,0,null,0,null,0,null,0,null,0,0,0,0,0,0,'','',0],
             [26972,'EDMI','217064051',0,'','2018-02-28 15:45:10',223.4,223.5,223.2,15,15,3.9,60,0.97,9858.79,10129.72,-1634.71,0,0,0,1597574.12,0,0,0,64139.59,1719749.12,0,null,0,null,0,null,0,null,0,0,0,0,0,0,'','',0],

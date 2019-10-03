@@ -2,7 +2,7 @@
 
 namespace App\Listeners;
 
-use App\Jobs\Reading;
+use App\Jobs\HourlyReport;
 use App\Events\MeterDataEvents;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -14,6 +14,6 @@ class MeterDataEventSubscriber implements ShouldQueue
 
     public function subscribe($events)
     {
-        $events->listen(MeterDataEvents::CREATED, Reading::class);
+        $events->listen(MeterDataEvents::CREATED, HourlyReport::class);
     }
 }
