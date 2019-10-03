@@ -3,7 +3,7 @@
 namespace App\Observers;
 
 use App\MeterData;
-use App\Events\{MeterDataEvents, NewMeterData};
+use App\Facades\AMR;
 
 class MeterDataObserver
 {
@@ -15,6 +15,6 @@ class MeterDataObserver
      */
     public function created(MeterData $meter_data)
     {
-        event(MeterDataEvents::CREATED, new NewMeterData($meter_data));
+        AMR::setMeterData($meter_data)->dispatchMeterDataCreatedEvent();
     }
 }

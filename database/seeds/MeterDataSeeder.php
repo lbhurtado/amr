@@ -15,15 +15,13 @@ class MeterDataSeeder extends Seeder
     public function run()
     {
         $client = new Client();
-        $url = "http://amr.app/api/amr/meter/data";
+        $url = route('meter-data');
 
         foreach ($this->getRecords() as $record) {
             $input = array_combine($this->getFieldNames(), $record);
-            // dd(json_encode($input));
             $client->request('POST', $url, [
                 'json' => $input
             ]);
-            // usleep(10);
         }
     }
 

@@ -3,7 +3,7 @@
 namespace App\Jobs;
 
 use App\MeterData;
-use App\Events\NewMeterData;
+use App\Events\MeterDataCreated;
 use Illuminate\Bus\Queueable;
 use App\Reading as MeterReading;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -20,7 +20,7 @@ class Reading implements ShouldQueue
      *
      * @return void
      */
-    public function handle(NewMeterData $event)
+    public function handle(MeterDataCreated $event)
     {
         $meter_data = $event->getMeterData();
         $previous_meter_data = MeterData::inLocation($meter_data->location)

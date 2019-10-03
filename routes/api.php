@@ -19,4 +19,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/amr/meter/data', MeterDataAction::class);
+Route::post('/amr/meter/data', MeterDataAction::class)->name('meter-data');

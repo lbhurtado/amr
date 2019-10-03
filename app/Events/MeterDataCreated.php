@@ -4,23 +4,24 @@ namespace App\Events;
 
 use App\MeterData;
 use Illuminate\Broadcasting\Channel;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
-use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Broadcasting\PrivateChannel;
+use Illuminate\Broadcasting\PresenceChannel;
+use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class NewMeterData
+class MeterDataCreated
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     /** @MeterData */
     protected $meter_data;
+
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param MeterData $meter_data
      */
     public function __construct(MeterData $meter_data)
     {
