@@ -14,5 +14,6 @@ class HourlyReport extends Model
         'hour_of_day',
         'wh_total',
         'datetime',
+        'meter_data_id'
     ];
 }

@@ -31,6 +31,7 @@ class HourlyReport implements ShouldQueue
             'time' => $meter_data->datetime,
             'wh_total' => $meter_data->wh_total,
             'datetime' => $meter_data->datetime,
+            'meter_data_id' => $meter_data->id
         ]);
 
         if ($model->exists) {
@@ -39,7 +40,8 @@ class HourlyReport implements ShouldQueue
                     'date' => $meter_data->datetime,
                     'time' => $meter_data->datetime,
                     'wh_total' => $meter_data->wh_total,
-                    'datetime' => $meter_data->datetime
+                    'datetime' => $meter_data->datetime,
+                    'meter_data_id' => $meter_data->id
                 ]);
             }
         }

@@ -22,6 +22,7 @@ class CreateHourlyReportsTable extends Migration
             $table->string('hour_of_day');
             $table->double('wh_total');
             $table->dateTime('datetime');
+            $table->bigInteger('meter_data_id');
             $table->timestamps();
             $table->unique(['meter_id', 'date', 'hour_of_day']);
         });
