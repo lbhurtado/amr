@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Carbon\Carbon;
+use Illuminate\Support\Arr;
 use Illuminate\Database\Eloquent\Model;
 
 class MeterData extends Model
@@ -53,13 +55,34 @@ class MeterData extends Model
         'relay_status'
     ];
 
-    public function scopeInLocation($query, $location)
+    public function scopeInLocation($query, ...$location)
     {
-        return $query->where('location', $location);
+        if (empty($location) || $location[0] == null)
+            return $query;
+
+        return $query->whereIn('location', Arr::flatten($location));
     }
 
-    public function scopeUsingMeterId($query, $meter_id)
+    public function scopeUsingMeterId($query, ...$meter_id)
     {
-        return $query->where('meter_id', $meter_id);
+        if (empty($meter_id) || $meter_id[0] == null)
+            return $query;
+
+        return $query->where('meter_id', Arr::flatten($meter_id));
+    }
+
+    public function scopeFrom($query, $from_date)
+    {
+        return $query->whereDate('datetime', '>=', $from_date);
+    }
+
+    public function scopeTo($query, $to_date)
+    {
+        return $query->whereDate('datetime', '<=', $to_date);
+    }
+
+    public function getDateAttribute()
+    {
+        return Carbon::parse($this->attributes['datetime'])->toDateString();
     }
 }

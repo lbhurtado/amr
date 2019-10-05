@@ -22,7 +22,7 @@ class MeterDataSeeder extends Seeder
             $client->request('POST', $url, [
                 'json' => $input
             ]);
-            usleep(100);
+//            usleep(100);
         }
     }
 

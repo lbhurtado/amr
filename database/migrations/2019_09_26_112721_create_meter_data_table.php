@@ -38,7 +38,7 @@ class CreateMeterDataTable extends Migration
             $table->double('wh_del');
             $table->double('wh_rec');
             $table->double('wh_net');
-            $table->double('wh_total');
+            $table->decimal('wh_total', 10,2);
             $table->double('varh_neg');
             $table->double('varh_pos');
             $table->double('varh_net');
