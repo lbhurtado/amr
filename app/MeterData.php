@@ -71,14 +71,9 @@ class MeterData extends Model
         return $query->where('meter_id', Arr::flatten($meter_id));
     }
 
-    public function scopeFrom($query, $from_date)
+    public function scopeBetween($query, $from_date, $to_date)
     {
-        return $query->whereDate('datetime', '>=', $from_date);
-    }
-
-    public function scopeTo($query, $to_date)
-    {
-        return $query->whereDate('datetime', '<=', $to_date);
+        return $query->whereBetween('datetime', [$from_date, $to_date]);
     }
 
     public function getDateAttribute()

@@ -10,6 +10,12 @@ use Prettus\Repository\Criteria\RequestCriteria;
 
 class MeterDataRepositoryEloquent extends BaseRepository implements MeterDataRepository
 {
+    protected $fieldSearchable = [
+        'datetime',
+        'location',
+        'meter_id',
+    ];
+
     /**
      * Specify Model class name
      *
@@ -36,6 +42,13 @@ class MeterDataRepositoryEloquent extends BaseRepository implements MeterDataRep
      */
     public function boot()
     {
-        $this->pushCriteria(app(RequestCriteria::class));
+        $this->pushCriteria(app(RequestCriteria::class))->orderBy('datetime', 'asc');
+    }
+
+    public function setDates($fromDate, $toDate)
+    {
+        return $this->scopeQuery(function($query) use ($fromDate, $toDate) {
+            return $query->whereBetween('datetime', [$fromDate, $toDate]);
+        });
     }
 }
