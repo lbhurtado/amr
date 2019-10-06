@@ -14,3 +14,5 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/data/{from_date}/{to_date}', 'MeterDataController');

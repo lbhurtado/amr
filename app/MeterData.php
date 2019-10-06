@@ -55,6 +55,9 @@ class MeterData extends Model
         'relay_status'
     ];
 
+    protected $appends = [
+        'hour'
+    ];
     public function scopeInLocation($query, ...$location)
     {
         if (empty($location) || $location[0] == null)
@@ -79,5 +82,10 @@ class MeterData extends Model
     public function getDateAttribute()
     {
         return Carbon::parse($this->attributes['datetime'])->toDateString();
+    }
+
+    public function getHourAttribute()
+    {
+        return Carbon::parse($this->attributes['datetime'])->format('H');
     }
 }
