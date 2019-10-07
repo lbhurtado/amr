@@ -30,7 +30,7 @@ class MeterDataController extends Controller
      */
     public function __invoke($from_date, $to_date)
     {
-        $collection = $this->repository->setDates($from_date, $to_date)->get();
+        $collection = $this->repository->setDates($from_date, $to_date)->orderBy('datetime', 'asc')->get();
 
         $group_collection = $collection->groupBy(['date', 'location', 'meter_id']);
 
@@ -45,9 +45,10 @@ class MeterDataController extends Controller
 
                         $prev = isset($placeholder[$collection->meter_id]) ? $placeholder[$collection->meter_id] : null;
                         $collection->hour_of_day = Carbon::parse($collection->datetime)->format('H');
-                        $collection->prev_wh_total = optional($prev)->wh_total;
-                        if ($collection->prev_wh_total)
+                        $collection->prev_wh_total = optional($prev)->wh_total ?? $collection->wh_total;
+                        if ($collection->prev_wh_total) {
                             $collection->diff_wh_total = number_format($collection->wh_total - $collection->prev_wh_total, 2);
+                        }
                         $placeholder[$collection->meter_id] = $collection;
 
                         return $collection->only(['id', 'date', 'location', 'meter_id', 'hour_of_day', 'wh_total', 'prev_wh_total', 'diff_wh_total']);

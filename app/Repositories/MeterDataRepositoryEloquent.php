@@ -42,7 +42,7 @@ class MeterDataRepositoryEloquent extends BaseRepository implements MeterDataRep
      */
     public function boot()
     {
-        $this->pushCriteria(app(RequestCriteria::class))->orderBy('datetime', 'asc');
+        $this->pushCriteria(app(RequestCriteria::class));
     }
 
     public function setDates($fromDate, $toDate)
