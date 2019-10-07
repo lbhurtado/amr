@@ -58,6 +58,13 @@ class MeterData extends Model
     protected $appends = [
         'hour'
     ];
+
+    protected $casts = [
+        'wh_total' => 'float',
+        'prev_wh_total' => 'float',
+        'diff_wh_total' => 'float',
+    ];
+
     public function scopeInLocation($query, ...$location)
     {
         if (empty($location) || $location[0] == null)

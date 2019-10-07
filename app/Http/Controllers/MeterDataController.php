@@ -32,9 +32,9 @@ class MeterDataController extends Controller
     {
         $collection = $this->repository->setDates($from_date, $to_date)->orderBy('datetime', 'asc')->get();
 
-        $group_collection = $collection->groupBy(['date', 'location', 'meter_id']);
+        $group_collection = $collection->groupBy(['date', 'location', 'meter_id', 'hour']);
 
-//        return $group_collection;
+       // return $group_collection;
 
         return $group_collection->map(function ($date_collection, $key) use (&$prev, &$placeholder) {
             return $date_collection->map(function ($location_collection, $key) use (&$placeholder) {
@@ -43,15 +43,24 @@ class MeterDataController extends Controller
 //                    dd($prev);
                     return $meter_id_collection->map(function ($collection, $key) use (&$placeholder) {
 
-                        $prev = isset($placeholder[$collection->meter_id]) ? $placeholder[$collection->meter_id] : null;
-                        $collection->hour_of_day = Carbon::parse($collection->datetime)->format('H');
-                        $collection->prev_wh_total = optional($prev)->wh_total ?? $collection->wh_total;
-                        if ($collection->prev_wh_total) {
-                            $collection->diff_wh_total = number_format($collection->wh_total - $collection->prev_wh_total, 2);
-                        }
-                        $placeholder[$collection->meter_id] = $collection;
+                        return $collection->map(function ($hour_collection, $key) use (&$placeholder) {
+                            $prev = isset($placeholder[$hour_collection->meter_id]) ? $placeholder[$hour_collection->meter_id] : null;
+                            $hour_collection->prev_wh_total = optional($prev)->wh_total ?? $hour_collection->wh_total;
+                            if ($hour_collection->prev_wh_total) {
+                                $hour_collection->diff_wh_total = number_format($hour_collection->wh_total - $hour_collection->prev_wh_total, 2);
+                            }
+                            $placeholder[$hour_collection->meter_id] = $hour_collection;
 
-                        return $collection->only(['id', 'date', 'location', 'meter_id', 'hour_of_day', 'wh_total', 'prev_wh_total', 'diff_wh_total']);
+                            return $hour_collection->only(['id', 'datetime', 'location', 'meter_id', 'wh_total', 'prev_wh_total', 'diff_wh_total']);
+                        });
+                        // $prev = isset($placeholder[$hour_collection->meter_id]) ? $placeholder[$hour_collection->meter_id] : null;
+                        // $hour_collection->prev_wh_total = optional($prev)->wh_total ?? $hour_collection->wh_total;
+                        // if ($hour_collection->prev_wh_total) {
+                        //     $hour_collection->diff_wh_total = number_format($hour_collection->wh_total - $hour_collection->prev_wh_total, 2);
+                        // }
+                        // $placeholder[$hour_collection->meter_id] = $hour_collection;
+
+                        // return $hour_collection->only(['id', 'date', 'location', 'meter_id', 'hour', 'wh_total', 'prev_wh_total', 'diff_wh_total']);
                     });
                 });
             });
