@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class MeterData extends Model
 {
+    public $connection = 'mariadb';
+    
     public $timestamps = false;
 
     protected $fillable = [
